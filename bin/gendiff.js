@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import diffObjects from './diff.js';
 import { Command } from 'commander';
 import path from 'path';
@@ -45,3 +46,4 @@ const gendiffs = (...inputParamPath) =>{
 }
 export default gendiffs;
 
+//gendiffs();

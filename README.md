@@ -4,7 +4,7 @@
 
 [![Node CI](https://github.com/BelarusWillBeFree/frontend-project-lvl2/workflows/Node%20CI/badge.svg)](https://github.com/BelarusWillBeFree/frontend-project-lvl2/actions)
 
-[![test]](https://github.com/BelarusWillBeFree/frontend-project-lvl2/actions/workflows/makeTests/badge.svg)]
+[![test]](https://github.com/BelarusWillBeFree/frontend-project-lvl2/actions/workflows/makeTests/badge.svg)](https://github.com/BelarusWillBeFree/frontend-project-lvl2/actions)
 
 gendiff
 

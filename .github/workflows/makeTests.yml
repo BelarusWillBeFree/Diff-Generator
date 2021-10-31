@@ -42,4 +42,4 @@ jobs:
           make lint
       - name: Run tests
         # Run tests
-        run: make test
+        run: NODE_OPTIONS=--experimental-vm-modules  npx jest

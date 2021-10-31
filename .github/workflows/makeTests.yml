@@ -29,7 +29,7 @@ jobs:
         # The Node.js version to configure
         with:
           node-version: ${{ matrix.node-version }}
-        name: npm install
+      - name: npm install
         # Install project
         run: |
           make install
@@ -42,4 +42,4 @@ jobs:
           make lint
       - name: Run tests
         # Run tests
-        run: NODE_OPTIONS=--experimental-vm-modules  npx jest
+        run: make test

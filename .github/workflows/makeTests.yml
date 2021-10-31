@@ -31,5 +31,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Run tests
         # Run tests
-        run: |
-        npm test
+        run: NODE_OPTIONS=--experimental-vm-modules npx jest

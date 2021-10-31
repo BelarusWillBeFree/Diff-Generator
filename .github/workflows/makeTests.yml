@@ -32,4 +32,4 @@ jobs:
       - name: Run tests
         # Run tests
         run: |
-          NODE_OPTIONS=--experimental-vm-modules npx jest
+        node --experimental-vm-modules "node_modules/.bin/jest"

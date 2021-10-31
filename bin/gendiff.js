@@ -8,6 +8,7 @@ import { openSync, closeSync, readFileSync, existsSync } from 'fs';
 const getJSONByPath = (inputPath) => {
   try {
    // const resolvePath = path.resolve(inputPath);
+   
     const resolvePath =path.normalize(inputPath);
     const extname = path.extname(resolvePath);
     if (existsSync(resolvePath) && extname === '.json') {

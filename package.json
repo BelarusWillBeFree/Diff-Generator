@@ -4,7 +4,9 @@
   "type": "module",
   "description": "[![Actions Status](https://github.com/BelarusWillBeFree/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/BelarusWillBeFree/frontend-project-lvl2/actions)",
   "main": "./bin/gendiff.js",
-  "bin": {"gendiff":"./bin/gendiff.js"},
+  "bin": {
+    "gendiff": "./bin/gendiff.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,7 +30,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.3",
     "eslint-plugin-jest": "^24.3.6",
-    "jest": "^27.0.1",
+    "jest": "^27.3.1",
     "jest-cli": "^27.0.1"
   }
 }

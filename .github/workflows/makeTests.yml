@@ -32,4 +32,4 @@ jobs:
       - name: Run tests
         # Run tests
         run: |
-        node --experimental-vm-modules "node_modules/.bin/jest"
+        npm test

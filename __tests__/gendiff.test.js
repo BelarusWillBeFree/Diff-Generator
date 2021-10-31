@@ -9,6 +9,6 @@ test('gendiff', () => {
 + timeout: 20
 + verbose: true
 }`;
-   expect(gendiff('/home/anatoli/js/frontend-project-lvl2/file1.json', './file2.json')).toEqual(positiveResult);
+   expect(gendiff('./file1.json', './file2.json')).toEqual(positiveResult);
  //   expect(reverse('')).toEqual('');
   });

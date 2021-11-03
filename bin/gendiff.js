@@ -2,30 +2,28 @@
 
 import diffObjects from './diff.js';
 import { Command } from 'commander';
+import parseData from './parsers.js';
 import path from 'path';
-import { openSync, closeSync, readFileSync, existsSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 
-const getJSONByPath = (inputPath) => {
+const getDataFromFile = (inputPath) => {
   try {
-   // const resolvePath = path.resolve(inputPath);
-   
     const resolvePath =path.normalize(inputPath);
     const extname = path.extname(resolvePath);
-    if (existsSync(resolvePath) && extname === '.json') {
-      const dataFile = readFileSync(resolvePath,'utf8');
-      return JSON.parse(dataFile);
+    if (existsSync(resolvePath)) {
+      return {data:readFileSync(resolvePath,'utf8'), ext:extname};
     }
     return {};
   } catch (err) {
     console.log(`error ${err}`);
   }
 };
-
 const getDiffStr = (path1, path2) =>{
-  const obj1 = getJSONByPath(path1);
-  const obj2 = getJSONByPath(path2);
-  const strResult = diffObjects(obj1, obj2);
-  console.log(strResult);
+  const infoFile1 = getDataFromFile(path1);
+  const infoFile2 = getDataFromFile(path2);
+  const parseFile1 = parseData(infoFile1);
+  const parseFile2 = parseData(infoFile2);
+  const strResult = diffObjects(parseFile1, parseFile2);
   return strResult;
 };
 
@@ -40,11 +38,11 @@ const gendiffs = (...inputParamPath) =>{
   program.argument('<filepath1>');
   program.argument('<filepath2>');
   program.action((path1, path2) =>{
-    return getDiffStr(path1, path2);
+    const diffStr = getDiffStr(path1, path2);
+    console.log(diffStr);
+    return diffStr;
   });
   program.parse(process.argv);
- 
 }
-export default gendiffs;
 
-//gendiffs();
+export default gendiffs;

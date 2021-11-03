@@ -6,3 +6,5 @@
 
 run gendiff
 [![asciicast](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY.svg)](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY)
+run gendiff step 5
+[![asciicast](https://asciinema.org/a/ERCkzn6efDszQhU2gibd0Q9Zj.svg)](https://asciinema.org/a/ERCkzn6efDszQhU2gibd0Q9Zj)

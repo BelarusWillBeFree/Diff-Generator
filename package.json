@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "description": "[![Actions Status](https://github.com/BelarusWillBeFree/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/BelarusWillBeFree/frontend-project-lvl2/actions)",
-  "main": "./bin/main.js",
+  "main": "./bin/gendiff.js",
   "bin": {
-    "gendiff": "./bin/main.js"
+    "gendiff": "./bin/gendiff.js"
   },
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"

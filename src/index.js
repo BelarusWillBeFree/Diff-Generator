@@ -26,7 +26,6 @@ const gendiff = (...inputParamPath) =>{
   if (inputParamPath.length > 2) {
     switch (inputParamPath[2]){
       default:
-       // return JSON.stringify(objResult);
         return stylish(objResult);
     }
   };

@@ -1,22 +1,24 @@
 import yaml from 'js-yaml';
 
+const throwError = (textMess) => {throw new Error(textMess)};
+
 const getDataFromFile = (dataInfo) => {
     if (dataInfo === undefined) {
-        throw new Error('extension is empty');
+        throwError('extension is empty');
     };
     if (dataInfo.ext === '.json') 
         try {
             return JSON.parse(dataInfo.data);
         } catch (err) {
-            throw new Error(`error parse from JSON ${err}`);
+            throwError(`error parse from JSON ${err}`);
         }
     if (dataInfo.ext === '.yml' || dataInfo.ext === '.yaml') 
         try {
             return yaml.load(dataInfo.data);
         } catch (err) {
-            throw new Error(`error parse from yaml ${err}`);
+            throwError(`error parse from yaml ${err}`);
         }
-    throw new Error(`extension not defined`);
+    throwError(`extension not defined`);
 };
 
 export default getDataFromFile;

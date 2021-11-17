@@ -58,3 +58,10 @@ test('testPlainFormatter', () => {
   const fixResultFile = readFile('plain');
   expect(gendiff(sourcePath1, sourcePath2, 'plain')).toEqual(fixResultFile);
 });
+
+test('test json Formatter', () => {
+  const sourcePath1 = getFixturePath('complexStruc1.json');
+  const sourcePath2 = getFixturePath('complexStruc2.json');
+  const fixResultFile = readFile('jsonFormat.json');
+  expect(gendiff(sourcePath1, sourcePath2, 'json')).toEqual(fixResultFile);
+});

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import getDiffObj from '../src/index.js';
 import { Command } from 'commander';
-//import stylish from '../src/stylish.js';
 
 const main = () =>{
   const program = new Command();
@@ -12,18 +11,15 @@ const main = () =>{
   program.argument('<filepath2>');
   program.action((path1, path2) =>{
     switch (program.opts().format){
-
+      case 'plain':
+        const diffTxtPlain = getDiffObj(path1, path2, 'plain');
+        console.log(diffTxtPlain);
+        return diffTxtPlain;
       default:
-        const diffObject = getDiffObj(path1, path2, 'stylish');
-        
-        console.log(diffObject);
-        return diffObject;
-      }
-//    if (program.opts().format === 'stylish'){
-//      const formatDefaultValue = stylish(diffObject);
-//      console.log(formatDefaultValue);
-//      return formatDefaultValue;
-//    }
+        const diffTxtStylish = getDiffObj(path1, path2);
+        console.log(diffTxtStylish);
+        return diffTxtStylish;
+    }
   });
   program.parse(process.argv);
 }

@@ -1,19 +1,14 @@
-import { Linter } from 'eslint';
-import { isObject } from './diffComp.js';
+import { isObject } from '../diffComp.js';
 
 const getViewSymbol = (diffSymb) => {
     if (diffSymb === '=' || diffSymb.length === 0){
         return '  ';
     };
-    return `${diffSymb} `
+    return `${diffSymb} `;
 };
 const getSymBefEnd = (value, begEnd = 'begin') => {
     const symbBegEnd = begEnd === 'begin' ? '{': '}';
     return isObject(value) ? symbBegEnd+'\n' : '';
-};
-const createEndIndent = (inpSpace, count) =>{
-    
-    return inpSpace.repeat(count);
 };
 
 const stylish = (diffObject, replacer, spacesCount, deep = 1) =>{

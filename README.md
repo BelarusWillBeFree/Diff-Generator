@@ -8,7 +8,9 @@ run gendiff
 [![asciicast](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY.svg)](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY)
 run gendiff step 5
 [![asciicast](https://asciinema.org/a/ERCkzn6efDszQhU2gibd0Q9Zj.svg)](https://asciinema.org/a/ERCkzn6efDszQhU2gibd0Q9Zj)
-run gendiff step 6
+run gendiff --format slylish
 [![asciicast](https://asciinema.org/a/GPoLlH4lyeToZICH9hDKReKHo.svg)](https://asciinema.org/a/GPoLlH4lyeToZICH9hDKReKHo)
-run gendiff -format plain
+run gendiff --format plain
 [![asciicast](https://asciinema.org/a/gQpBqUz5yn5C0bAig6luCod5v.svg)](https://asciinema.org/a/gQpBqUz5yn5C0bAig6luCod5v)
+run gendiff --format json
+[![asciicast](https://asciinema.org/a/WeyDqa5kN0ij1qi3wJpIXpwTF.svg)](https://asciinema.org/a/WeyDqa5kN0ij1qi3wJpIXpwTF)

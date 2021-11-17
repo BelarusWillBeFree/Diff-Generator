@@ -6,19 +6,19 @@ const getDataFromFile = (dataInfo) => {
     if (dataInfo === undefined) {
         throwError('extension is empty');
     };
-    if (dataInfo.ext === '.json') 
-        try {
+    try {
+        switch (dataInfo.ext){
+        case '.json':
             return JSON.parse(dataInfo.data);
-        } catch (err) {
-            throwError(`error parse from JSON ${err}`);
-        }
-    if (dataInfo.ext === '.yml' || dataInfo.ext === '.yaml') 
-        try {
+        case '.yml':
+        case '.yaml':
             return yaml.load(dataInfo.data);
-        } catch (err) {
-            throwError(`error parse from yaml ${err}`);
+        default:
+            throwError(`extension not defined`);
         }
-    throwError(`extension not defined`);
+    } catch (err) {
+        throwError(`error parse ${err}`);
+    }
 };
 
 export default getDataFromFile;

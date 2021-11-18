@@ -10,9 +10,9 @@ const main = () =>{
   program.argument('<filepath1>');
   program.argument('<filepath2>');
   program.action((path1, path2) =>{
-    const diffTxtPlain = getDiffObj(path1, path2, program.opts().format);
-    console.log(diffTxtPlain);
-    return diffTxtPlain;
+    const diffresult = getDiffObj(path1, path2, program.opts().format);
+    console.log(diffresult);
+    return diffresult;
   });
   program.parse(process.argv);
 }

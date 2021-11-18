@@ -14,7 +14,7 @@ const startPlain = (diffObject, parents = '') =>{
             return `Property '${nameParents}${node.key}' was added with value: ${value}`;
         }
         if (node.sign === '-'){
-            if (nodes[index + 1].key === node.key) {
+            if ((index + 1 <= nodes.length - 1) && nodes[index + 1].key === node.key) {
                 const valueNextElem = isObject(nodes[index + 1].value) ? `[complex value]` : getFormatedValue(nodes[index + 1].value);
                 return `Property '${nameParents}${node.key}' was updated. From ${value} to ${valueNextElem}`;
             }

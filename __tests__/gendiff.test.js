@@ -1,7 +1,7 @@
-import gendiff from '../src/index.js';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import { readFileSync } from 'fs';
+import gendiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,7 +20,7 @@ test('gendiffJSON', () => {
 test('no exist extension', () => {
   const sourcePath1 = getFixturePath('file1.jso');
   const sourcePath2 = getFixturePath('file2.json');
-  expect(()=>(gendiff(sourcePath1, sourcePath2, 'stylish'))).toThrow();
+  expect(() => (gendiff(sourcePath1, sourcePath2, 'stylish'))).toThrow();
   });
 
 test('gendiffYAML', () => {
@@ -33,7 +33,7 @@ test('gendiffYAML', () => {
 test('gendiffYAML_file1_not_exist', () => {
   const sourcePath1 = getFixturePath('file1.yaml1');
   const sourcePath2 = getFixturePath('file2.yaml');
-  expect(()=>(gendiff(sourcePath1, sourcePath2, 'stylish'))).toThrow();
+  expect(() => (gendiff(sourcePath1, sourcePath2, 'stylish'))).toThrow();
 });
 
 test('testComplexStructureJSON', () => {
@@ -57,7 +57,7 @@ test('testPlainFormatter', () => {
   expect(gendiff(sourcePath1, sourcePath2, 'plain')).toEqual(fixResultFile);
 });
 
-test('test json Formatter', () => {
+test('json Formatter', () => {
   const sourcePath1 = getFixturePath('complexStruc1.json');
   const sourcePath2 = getFixturePath('complexStruc2.json');
   const fixResultFile = readFile('jsonFormat.json');

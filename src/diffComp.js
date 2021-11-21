@@ -2,13 +2,9 @@ import _ from 'lodash';
 
 export const isObject = (checkValue) => (checkValue !== null && typeof checkValue === 'object');
 
-const addObj = (inpSign, inpKey, inpValue) => {
-    return {sign:inpSign, key: inpKey, value: inpValue};
-};
+const addObj = (inpSign, inpKey, inpValue) => ({sign:inpSign, key: inpKey, value: inpValue});
 
-const isObjectEmpty = (objectForCheck, defaultSign = '') =>{
-    return Object.keys(objectForCheck).length === 0 ? '' : defaultSign;
-};
+const isObjectEmpty = (objectForCheck, defaultSign = '') =>(Object.keys(objectForCheck).length === 0 ? '' : defaultSign);
 
 const makeComplexDiff = (oneObject, twoObject = {}) => {
     if (!isObject(oneObject)){

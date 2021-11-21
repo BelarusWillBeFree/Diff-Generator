@@ -25,7 +25,7 @@ const gendiff = (...inputParam) =>{
   const diff = getDiff(parseFile1, parseFile2);
   if (inputParam.length > 2) {
     return formatter(diff, inputParam[2]);
-  };
+  }
   return formatter(diff);
 }
 

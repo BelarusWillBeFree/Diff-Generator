@@ -3,7 +3,7 @@ import { isObject } from '../diffComp.js';
 const getViewSymbol = (diffSymb) => {
     if (diffSymb === '=' || diffSymb.length === 0){
         return '  ';
-    };
+    }
     return `${diffSymb} `;
 };
 const getSymBefEnd = (value, begEnd = 'begin') => {
@@ -14,7 +14,7 @@ const getSymBefEnd = (value, begEnd = 'begin') => {
 const stylish = (diffObject, replacer, spacesCount, deep = 1) =>{
     if (!isObject(diffObject)){
         return String(diffObject)+'\n';
-    };
+    }
     const resultFormat = diffObject.map((obj)=>{
         const replacerForBegin = replacer.repeat(spacesCount * deep);
         const replacerForEnd = isObject(obj.value) ? replacer.repeat(spacesCount * deep+2):'';

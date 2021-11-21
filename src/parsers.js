@@ -5,7 +5,7 @@ const throwError = (textMess) => {throw new Error(textMess)};
 const getDataFromFile = (dataInfo) => {
     if (dataInfo === undefined) {
         throwError('extension is empty');
-    };
+    }
     try {
         switch (dataInfo.ext){
         case '.json':

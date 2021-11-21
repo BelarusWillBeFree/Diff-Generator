@@ -5,22 +5,24 @@ const getFormatedValue = (value) => {
   return value;
 };
 
+const getNameParents = (parents) => ( parents === '' ? '' : `${parents}.`);
+
+const getValue = (node) => (isObject(node.value) ? '[complex value]' : getFormatedValue(node.value));
+
 const startPlain = (diffObject, parents = '') => {
   const lines = diffObject.flatMap((node, index, nodes) => {
-    const nameParents = parents === '' ? '' : `${parents}.`;
-    const value = isObject(node.value) ? '[complex value]' : getFormatedValue(node.value);
     if (node.sign === '+') {
       if (index >= 1 && nodes[index - 1].key === node.key) return [];
-      return `Property '${nameParents}${node.key}' was added with value: ${value}`;
+      return `Property '${getNameParents(parents)}${node.key}' was added with value: ${getValue(node)}`;
     }
     if (node.sign === '-') {
       if ((index + 1 <= nodes.length - 1) && nodes[index + 1].key === node.key) {
         const valueNextElem = isObject(nodes[index + 1].value) ? '[complex value]' : getFormatedValue(nodes[index + 1].value);
-        return `Property '${nameParents}${node.key}' was updated. From ${value} to ${valueNextElem}`;
+        return `Property '${getNameParents(parents)}${node.key}' was updated. From ${getValue(node)} to ${valueNextElem}`;
       }
-      return `Property '${nameParents}${node.key}' was removed`;
+      return `Property '${getNameParents(parents)}${node.key}' was removed`;
     }
-    return isObject(node.value) ? startPlain(node.value, `${nameParents}${node.key}`) : [];
+    return isObject(node.value) ? startPlain(node.value, `${getNameParents(parents)}${node.key}`) : [];
   }).filter((value) => (value.length > 0)).join('\n');
   return lines;
 };

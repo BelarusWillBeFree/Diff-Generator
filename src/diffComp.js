@@ -12,8 +12,9 @@ const makeComplexDiff = (oneObject, twoObject = {}) => {
   }
   const keysFromFirstObject = Object.entries(oneObject).map(([key]) => (key));
   const keysFromSecondObject = Object.entries(twoObject).map(([key]) => (key));
-  const fullSortedKeys = _.union(keysFromFirstObject, keysFromSecondObject).sort();
-  const fullKeysWithEmpty = fullSortedKeys.flatMap((key) => {
+  const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
+  const fullSortedKeys = _.sortBy(unionKeys);
+  return fullSortedKeys.flatMap((key) => {
     const value1 = oneObject[key];
     const value2 = twoObject[key];
     const obj1HasKeyProperty = Object.prototype.hasOwnProperty.call(oneObject, key);
@@ -40,7 +41,6 @@ const makeComplexDiff = (oneObject, twoObject = {}) => {
     }
     return [];
   });
-  return fullKeysWithEmpty.filter((value) => (value.length > 0));
 };
 
 export default makeComplexDiff;

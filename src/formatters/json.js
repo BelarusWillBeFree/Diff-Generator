@@ -1,5 +1,3 @@
-const jsonFormat = (diffObject) =>{
-    return JSON.stringify(diffObject);
-};
+const jsonFormat = (diffObject) => (JSON.stringify(diffObject));
 
 export default jsonFormat;

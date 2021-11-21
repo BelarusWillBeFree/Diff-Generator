@@ -9,7 +9,7 @@ const getDataFromFile = (inputPath) => {
     const resolvePath = path.normalize(inputPath);
     const extname = path.extname(resolvePath);
     if (existsSync(resolvePath)) {
-      return { data: readFileSync(resolvePath,'utf8'), ext: extname };
+      return { data: readFileSync(resolvePath, 'utf8'), ext: extname };
     }
     throw new Error(`file ${resolvePath} is not exist`);
   } catch (err) {

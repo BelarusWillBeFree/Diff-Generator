@@ -13,12 +13,13 @@ const getDataFromFile = (dataInfo) => {
       case '.yml':
       case '.yaml':
         return yaml.load(dataInfo.data);
-      default: 
+      default:
         throwError('extension not defined');
     }
   } catch (err) {
     throwError(`error parse ${err}`);
   }
+  throwError('not defined format');
 };
 
 export default getDataFromFile;

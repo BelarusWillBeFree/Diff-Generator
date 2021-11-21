@@ -1,7 +1,6 @@
-import gendiff from '../src/index.js'
+import gendiff from '../src/index.js';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import path from 'path';
+import path, { dirname } from 'path';
 import { readFileSync } from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,9 +15,9 @@ test('gendiffJSON', () => {
   const sourcePath2 = getFixturePath('file2.json');
   const fixResultFile = readFile('fixturefile1.json');
   expect(gendiff(sourcePath1, sourcePath2, 'stylish')).toEqual(fixResultFile);
-  });
+});
 
-  test('no exist extension', () => {
+test('no exist extension', () => {
   const sourcePath1 = getFixturePath('file1.jso');
   const sourcePath2 = getFixturePath('file2.json');
   expect(()=>(gendiff(sourcePath1, sourcePath2, 'stylish'))).toThrow();

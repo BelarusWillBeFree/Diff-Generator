@@ -14,7 +14,7 @@ const getSymBefEnd = (value, begEnd = 'begin') => {
 
 const stylish = (diffObject, replacer, spacesCount, deep = 1) => {
   if (!isObject(diffObject)) {
-    return String(diffObject) + '\n';
+    return `${String(diffObject)}\n`;
   }
   const resultFormat = diffObject.map((obj) => {
     const replacerForBegin = replacer.repeat(spacesCount * deep);
@@ -30,6 +30,6 @@ const stylish = (diffObject, replacer, spacesCount, deep = 1) => {
   return resultFormat;
 };
 
-const startStylish = (diffObject, replacer = ' ', spacesCount = 2) => ('{\n'+stylish(diffObject, replacer, spacesCount)+'}');
+const startStylish = (diffObject, replacer = ' ', spacesCount = 2) => (`{\n${stylish(diffObject, replacer, spacesCount)}}`);
 
 export default startStylish;

@@ -7,14 +7,14 @@ const addObj = (inpSign, inpKey, inpValue) => ({ sign: inpSign, key: inpKey, val
 const isObjectEmpty = (objectForCheck, defaultSign = '') => (Object.keys(objectForCheck).length === 0 ? '' : defaultSign);
 
 const makeComplexDiff = (oneObject, twoObject = {}) => {
-  if (!isObject(oneObject)){
+  if (!isObject(oneObject)) {
     return oneObject;
   }
   const keysFromFirstObject = Object.entries(oneObject).map(([key]) => (key));
   const keysFromSecondObject = Object.entries(twoObject).map(([key]) => (key));
-  const fullKeys = _.union(keysFromFirstObject, keysFromSecondObject).sort();
+  const fullSortedKeys = _.union(keysFromFirstObject, keysFromSecondObject).sort();
   
-  return fullKeys.flatMap((key) => {
+  const fullKeysWithEmpty = fullSortedKeys.flatMap((key) => {
     const value1 = oneObject[key];
     const value2 = twoObject[key];
     const obj1HasKeyProperty = Object.prototype.hasOwnProperty.call(oneObject, key);
@@ -39,7 +39,9 @@ const makeComplexDiff = (oneObject, twoObject = {}) => {
     if (obj2HasKeyProperty) {
       return addObj('+', key, makeComplexDiff(value2));
     }
-  }).filter((value) => (Array.isArray(value) && value.length === 0 ? false : true));
+    return [];
+  });
+  return fullKeysWithEmpty.filter((value) => (value.length === 0 ? false : true));
 };
 
 export default makeComplexDiff;

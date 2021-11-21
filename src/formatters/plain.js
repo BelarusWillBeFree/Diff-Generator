@@ -7,7 +7,7 @@ const getFormatedValue = (value) => {
 
 const startPlain = (diffObject, parents = '') => {
   const lines = diffObject.flatMap((node, index, nodes) => {
-    const nameParents = parents === '' ? '' : parents + '.';
+    const nameParents = parents === '' ? '' : `${parents}.`;
     const value = isObject(node.value) ? '[complex value]' : getFormatedValue(node.value);
     if (node.sign === '+') {
       if (index >= 1 && nodes[index - 1].key === node.key) return [];
@@ -21,7 +21,7 @@ const startPlain = (diffObject, parents = '') => {
       return `Property '${nameParents}${node.key}' was removed`;
     }
     return isObject(node.value) ? startPlain(node.value, `${nameParents}${node.key}`) : [];
-  }).filter((value) => (value.length === 0 ? false : true)).join('\n');
+  }).filter((value) => (value.length > 0)).join('\n');
   return lines;
 };
 

@@ -19,13 +19,7 @@ const stylish = (diffObject, replacer, spacesCount, deep = 1) => {
   const resultFormat = diffObject.map((obj) => {
     const replacerForBegin = replacer.repeat(spacesCount * deep);
     const replacerForEnd = isObject(obj.value) ? replacer.repeat(spacesCount * deep + 2) : '';
-    return replacerForBegin
-                + `${getViewSymbol(obj.sign)}`
-                + `${obj.key}: `
-                + `${getSymBefEnd(obj.value)}`
-                + `${stylish(obj.value, replacer, spacesCount, deep + spacesCount)}`
-                + replacerForEnd
-                + `${getSymBefEnd(obj.value, 'end')}`;
+    return `${replacerForBegin}${getViewSymbol(obj.sign)}${obj.key}: ${getSymBefEnd(obj.value)}${stylish(obj.value, replacer, spacesCount, deep + spacesCount)}${replacerForEnd}${getSymBefEnd(obj.value, 'end')}`;
   }).join('');
   return resultFormat;
 };

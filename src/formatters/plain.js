@@ -1,13 +1,13 @@
 import { isObject } from '../diffComp.js';
 
-const getFormatedValue = (value) =>{
-    if (typeof value === 'string') return `'${value}'`;
-    return value;
+const getFormatedValue = (value) => {
+  if (typeof value === 'string') return `'${value}'`;
+  return value;
 };
 
-const startPlain = (diffObject, parents = '') =>{
-    const lines = diffObject.flatMap((node, index, nodes)=>{
-        const nameParents = parents ==='' ? '' : parents + '.'
+const startPlain = (diffObject, parents = '') => {
+  const lines = diffObject.flatMap((node, index, nodes) => {
+        const nameParents = parents === '' ? '' : parents + '.';
         const value = isObject(node.value) ? `[complex value]` : getFormatedValue(node.value);
         if (node.sign === '+'){
             if (index >= 1 && nodes[index - 1].key === node.key) return [];
@@ -21,8 +21,8 @@ const startPlain = (diffObject, parents = '') =>{
             return `Property '${nameParents}${node.key}' was removed`;
         }
     return isObject(node.value) ? startPlain(node.value, `${nameParents}${node.key}`) : [];
-    }).filter((value)=>(Array.isArray(value) && value.length === 0 ? false : true)).join('\n');
-    return lines;
+  }).filter((value) => (Array.isArray(value) && value.length === 0 ? false : true)).join('\n');
+  return lines;
 };
 
 export default startPlain;

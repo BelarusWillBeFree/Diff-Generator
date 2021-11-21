@@ -19,7 +19,8 @@ const getDataFromFile = (dataInfo) => {
   } catch (err) {
     throwError(`error parse ${err}`);
   }
-  throwError('not defined format');
+  throwError('format not defined');
+  return {};
 };
 
 export default getDataFromFile;

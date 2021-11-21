@@ -17,16 +17,13 @@ const getDataFromFile = (inputPath) => {
   }
 };
 
-const gendiff = (...inputParam) => {
-  const infoFile1 = getDataFromFile(inputParam[0]);
-  const infoFile2 = getDataFromFile(inputParam[1]);
+const gendiff = (path1, path2, format) => {
+  const infoFile1 = getDataFromFile(path1);
+  const infoFile2 = getDataFromFile(path2);
   const parseFile1 = parseData(infoFile1);
   const parseFile2 = parseData(infoFile2);
   const diff = getDiff(parseFile1, parseFile2);
-  if (inputParam.length > 2) {
-    return formatter(diff, inputParam[2]);
-  }
-  return formatter(diff);
+  return formatter(diff, format);
 };
 
 export default gendiff;

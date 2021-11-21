@@ -21,7 +21,6 @@ test('gendiffJSON', () => {
   test('no exist extension', () => {
   const sourcePath1 = getFixturePath('file1.jso');
   const sourcePath2 = getFixturePath('file2.json');
-  const fixResultFile = readFile('fixturefile1.json');
   expect(()=>(gendiff(sourcePath1, sourcePath2, 'stylish'))).toThrow();
   });
 

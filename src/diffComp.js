@@ -10,42 +10,43 @@ const getUnionSorted = (oneObject, twoObject) => {
   const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
   return _.sortBy(unionKeys);
 };
+const addValues = (oneObject, twoObject, key, values) => {
+  const obj1HasKeyProperty = Object.prototype.hasOwnProperty.call(oneObject, key);
+  const obj2HasKeyProperty = Object.prototype.hasOwnProperty.call(twoObject, key);
+  const value1 = oneObject[key];
+  const value2 = twoObject[key];
+  if (obj1HasKeyProperty && obj2HasKeyProperty) {
+    if (isObject(value1) && isObject(value2)) {
+      return { sign: '=', key: key, value: values.comp };
+    }
+    if (!isObject(value1) && !isObject(value2)) {
+      if (value1 !== value2) {
+        return [{ sign: '-', key: key, value: value1 }, { sign: '+', key: key, value: value2 }];
+      }
+      return { sign: '=', key: key, value: value1 };
+    }
+    if (isObject(value1) !== isObject(value2)) {
+      return [{ sign: '-', key: key, value: values.fir }, { sign: '+', key: key, value: values.sec }];
+    }
+  }
+  if (obj1HasKeyProperty) {
+    const sign = isObjectEmpty(twoObject, '-');
+    return { sign: sign, key: key, value: values.fir };
+  }
+  if (obj2HasKeyProperty) {
+    return { sign: '+', key: key, value: values.sec };
+  }
+  return [];
+};
 
 const makeComplexDiff = (oneObject, twoObject = {}) => {
   if (!isObject(oneObject)) return oneObject;
   const fullSortedKeys = getUnionSorted(oneObject, twoObject);
   return fullSortedKeys.flatMap((key) => {
-    const value1 = oneObject[key];
-    const value2 = twoObject[key];
-    const obj1HasKeyProperty = Object.prototype.hasOwnProperty.call(oneObject, key);
-    const obj2HasKeyProperty = Object.prototype.hasOwnProperty.call(twoObject, key);
-    if (obj1HasKeyProperty && obj2HasKeyProperty) {
-      if (isObject(value1) && isObject(value2)) {
-        const valTwoObj = makeComplexDiff(value1, value2);
-        return { sign: '=', key: key, value: valTwoObj };
-      }
-      if (!isObject(value1) && !isObject(value2)) {
-        if (value1 !== value2) {
-          return [{ sign: '-', key: key, value: value1 },{ sign: '+', key: key, value: value2 }];
-        }
-        return { sign: '=', key: key, value: value1 };
-      }
-      if (isObject(value1) !== isObject(value2)) {
-        const valueFirstObj = makeComplexDiff(value1);
-        const valueSecObj = makeComplexDiff(value2);
-        return [{ sign: '-', key: key, value: valueFirstObj },{ sign: '+', key: key, value: valueSecObj }];
-      }
-    }
-    if (obj1HasKeyProperty) {
-      const sign = isObjectEmpty(twoObject, '-');
-      const valOnlyOneObj = makeComplexDiff(value1);
-      return { sign: sign, key: key, value: valOnlyOneObj };
-    }
-    if (obj2HasKeyProperty) {
-      const valueOnlyTwoObj = makeComplexDiff(value2);
-      return { sign: '+', key: key, value: valueOnlyTwoObj };
-    }
-    return [];
+    const compexValue = makeComplexDiff(oneObject[key], twoObject[key]);
+    const valueFirObj = makeComplexDiff(oneObject[key]);
+    const valueSecObj = makeComplexDiff(twoObject[key]);
+    return addValues(oneObject, twoObject, key, {comp: compexValue, fir: valueFirObj, sec: valueSecObj});
   });
 };
 

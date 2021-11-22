@@ -7,19 +7,18 @@ const addObj = (inpSign, inpKey, inpValue) => ({ sign: inpSign, key: inpKey, val
 const isObjectEmpty = (objectForCheck, defaultSign = '') => (Object.keys(objectForCheck).length === 0 ? '' : defaultSign);
 
 const addDiffFromTwoObj = (key, value1, value2) => {
-    if (isObject(value1) && isObject(value2)) {
-        return addObj('=', key, makeComplexDiff(value1, value2));
-      }
-      if (!isObject(value1) && !isObject(value2)) {
-        if (value1 !== value2) {
-          return [addObj('-', key, value1), addObj('+', key, value2)];
-        }
-        return addObj('=', key, value1);
-      }
-      if (isObject(value1) !== isObject(value2)) {
-        return [addObj('-', key, makeComplexDiff(value1)), addObj('+', key, makeComplexDiff(value2))];
-      }
-
+  if (isObject(value1) && isObject(value2)) {
+    return addObj('=', key, makeComplexDiff(value1, value2));
+  }
+  if (!isObject(value1) && !isObject(value2)) {
+    if (value1 !== value2) {
+      return [addObj('-', key, value1), addObj('+', key, value2)];
+    }
+    return addObj('=', key, value1);
+  }
+  if (isObject(value1) !== isObject(value2)) {
+    return [addObj('-', key, makeComplexDiff(value1)), addObj('+', key, makeComplexDiff(value2))];
+  }
 };
 
 const makeComplexDiff = (oneObject, twoObject = {}) => {

@@ -26,7 +26,8 @@ const startPlain = (diffObject, parents = '') => {
   const linesWithEmpty = diffObject.flatMap((node, index, nodes) => {
     if (node.sign === '+') return addedValue(node, index, nodes, parents);
     if (node.sign === '-') return updatedValue(node, index, nodes, parents);
-    return isObject(node.value) ? startPlain(node.value, `${getNameParents(parents)}${node.key}`) : [];
+    if (isObject(node.value)) return startPlain(node.value, `${getNameParents(parents)}${node.key}`);
+    return [];
   });
   return linesWithEmpty.filter((value) => (value.length > 0)).join('\n');
 };

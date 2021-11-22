@@ -6,17 +6,15 @@ const addObj = (inpSign, inpKey, inpValue) => ({ sign: inpSign, key: inpKey, val
 
 const isObjectEmpty = (objectForCheck, defaultSign = '') => (Object.keys(objectForCheck).length === 0 ? '' : defaultSign);
 
-const getUnionSorted = (oneObject, twoObject) =>{
+const getUnionSorted = (oneObject, twoObject) => {
   const keysFromFirstObject = Object.entries(oneObject).map(([key]) => (key));
   const keysFromSecondObject = Object.entries(twoObject).map(([key]) => (key));
   const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
   return _.sortBy(unionKeys);
-
 };
+
 const makeComplexDiff = (oneObject, twoObject = {}) => {
-  if (!isObject(oneObject)) {
-    return oneObject;
-  }
+  if (!isObject(oneObject)) return oneObject;
   const fullSortedKeys = getUnionSorted(oneObject, twoObject);
   return fullSortedKeys.flatMap((key) => {
     const value1 = oneObject[key];

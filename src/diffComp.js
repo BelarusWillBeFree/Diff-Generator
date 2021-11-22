@@ -21,7 +21,8 @@ const makeComplexDiff = (oneObject, twoObject = {}) => {
     const obj2HasKeyProperty = Object.prototype.hasOwnProperty.call(twoObject, key);
     if (obj1HasKeyProperty && obj2HasKeyProperty) {
       if (isObject(value1) && isObject(value2)) {
-        return { sign: '=', key: key, value: makeComplexDiff(value1, value2) };
+        const valTwoObj = makeComplexDiff(value1, value2);
+        return { sign: '=', key: key, value: valTwoObj };
       }
       if (!isObject(value1) && !isObject(value2)) {
         if (value1 !== value2) {
@@ -30,14 +31,19 @@ const makeComplexDiff = (oneObject, twoObject = {}) => {
         return { sign: '=', key: key, value: value1 };
       }
       if (isObject(value1) !== isObject(value2)) {
-        return [{ sign: '-', key: key, value: makeComplexDiff(value1) },{ sign: '+', key: key, value: makeComplexDiff(value2) }];
+        const valueFirstObj = makeComplexDiff(value1);
+        const valueSecObj = makeComplexDiff(value2);
+        return [{ sign: '-', key: key, value: valueFirstObj },{ sign: '+', key: key, value: valueSecObj }];
       }
     }
     if (obj1HasKeyProperty) {
-      return { sign: isObjectEmpty(twoObject, '-'), key: key, value: makeComplexDiff(value1) };
+      const sign = isObjectEmpty(twoObject, '-');
+      const valOnlyOneObj = makeComplexDiff(value1);
+      return { sign: sign, key: key, value: valOnlyOneObj };
     }
     if (obj2HasKeyProperty) {
-      return { sign: '+', key: key, value: makeComplexDiff(value2) };
+      const valueOnlyTwoObj = makeComplexDiff(value2);
+      return { sign: '+', key: key, value: valueOnlyTwoObj };
     }
     return [];
   });

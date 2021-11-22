@@ -46,7 +46,8 @@ const makeComplexDiff = (oneObject, twoObject = {}) => {
     const compexValue = makeComplexDiff(oneObject[key], twoObject[key]);
     const valueFirObj = makeComplexDiff(oneObject[key]);
     const valueSecObj = makeComplexDiff(twoObject[key]);
-    return addValues(oneObject, twoObject, key, {comp: compexValue, fir: valueFirObj, sec: valueSecObj});
+    const allValues = { comp: compexValue, fir: valueFirObj, sec: valueSecObj };
+    return addValues(oneObject, twoObject, key, allValues);
   });
 };
 

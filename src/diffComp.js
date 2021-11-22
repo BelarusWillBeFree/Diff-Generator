@@ -2,8 +2,6 @@ import _ from 'lodash';
 
 export const isObject = (checkValue) => (checkValue !== null && typeof checkValue === 'object');
 
-const addObj = (inpSign, inpKey, inpValue) => ({ sign: inpSign, key: inpKey, value: inpValue });
-
 const isObjectEmpty = (objectForCheck, defaultSign = '') => (Object.keys(objectForCheck).length === 0 ? '' : defaultSign);
 
 const getUnionSorted = (oneObject, twoObject) => {
@@ -23,23 +21,23 @@ const makeComplexDiff = (oneObject, twoObject = {}) => {
     const obj2HasKeyProperty = Object.prototype.hasOwnProperty.call(twoObject, key);
     if (obj1HasKeyProperty && obj2HasKeyProperty) {
       if (isObject(value1) && isObject(value2)) {
-        return addObj('=', key, makeComplexDiff(value1, value2));
+        return { sign: '=', key: key, value: makeComplexDiff(value1, value2) };
       }
       if (!isObject(value1) && !isObject(value2)) {
         if (value1 !== value2) {
-          return [addObj('-', key, value1), addObj('+', key, value2)];
+          return [{ sign: '-', key: key, value: value1 },{ sign: '+', key: key, value: value2 }];
         }
-        return addObj('=', key, value1);
+        return { sign: '=', key: key, value: value1 };
       }
       if (isObject(value1) !== isObject(value2)) {
-        return [addObj('-', key, makeComplexDiff(value1)), addObj('+', key, makeComplexDiff(value2))];
+        return [{ sign: '-', key: key, value: makeComplexDiff(value1) },{ sign: '+', key: key, value: makeComplexDiff(value2) }];
       }
     }
     if (obj1HasKeyProperty) {
-      return addObj(isObjectEmpty(twoObject, '-'), key, makeComplexDiff(value1));
+      return { sign: isObjectEmpty(twoObject, '-'), key: key, value: makeComplexDiff(value1) };
     }
     if (obj2HasKeyProperty) {
-      return addObj('+', key, makeComplexDiff(value2));
+      return { sign: '+', key: key, value: makeComplexDiff(value2) };
     }
     return [];
   });

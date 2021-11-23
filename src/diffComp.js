@@ -10,6 +10,18 @@ const getUnionSorted = (oneObject, twoObject) => {
   const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
   return _.sortBy(unionKeys);
 };
+
+const addNode = (sign, key, value) => {
+  const newNode = { sign: sign, key: key, value: value };
+  return newNode;
+};
+
+const addSubPlus = (key, value1, value2) => {
+  const subNode = { sign: '-', key: key, value: value1 };
+  const plusNode = { sign: '+', key: key, value: value2 };
+  return [subNode, plusNode];
+};
+
 const addValues = (oneObject, twoObject, key, values) => {
   const obj1HasKeyProperty = Object.prototype.hasOwnProperty.call(oneObject, key);
   const obj2HasKeyProperty = Object.prototype.hasOwnProperty.call(twoObject, key);
@@ -17,24 +29,24 @@ const addValues = (oneObject, twoObject, key, values) => {
   const value2 = twoObject[key];
   if (obj1HasKeyProperty && obj2HasKeyProperty) {
     if (isObject(value1) && isObject(value2)) {
-      return { sign: '=', key: key, value: values.comp };
+      return addNode('=', key, values.comp);
     }
     if (!isObject(value1) && !isObject(value2)) {
       if (value1 !== value2) {
-        return [{ sign: '-', key: key, value: value1 }, { sign: '+', key: key, value: value2 }];
+        return addSubPlus(key, value1, value2);
       }
-      return { sign: '=', key: key, value: value1 };
+      return addNode('=', key, value1);
     }
     if (isObject(value1) !== isObject(value2)) {
-      return [{ sign: '-', key: key, value: values.fir }, { sign: '+', key: key, value: values.sec }];
+      return addSubPlus(key, values.fir, values.sec);
     }
   }
   if (obj1HasKeyProperty) {
     const sign = isObjectEmpty(twoObject, '-');
-    return { sign: sign, key: key, value: values.fir };
+    return addNode(sign, key, values.fir);
   }
   if (obj2HasKeyProperty) {
-    return { sign: '+', key: key, value: values.sec };
+    return addNode('+', key, values.sec);
   }
   return [];
 };

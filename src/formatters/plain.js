@@ -24,16 +24,14 @@ const updatedValue = (node, index, nodes, parents) => {
 
 const startPlain = (diffObject, parents = '') => {
   const linesWithEmpty = diffObject.flatMap((node, index, nodes) => {
-    if (node.sign === '+') {
-      return addedValue(node, index, nodes, parents);
+    switch (node.sign){
+      case '+':
+        return addedValue(node, index, nodes, parents);
+      case '-':
+        return updatedValue(node, index, nodes, parents);
+      default:
+       return isObject(node.value) ? startPlain(node.value, `${getNameParents(parents)}${node.key}`) : [];
     }
-    if (node.sign === '-') {
-      return updatedValue(node, index, nodes, parents);
-    }
-    if (isObject(node.value)) {
-      return startPlain(node.value, `${getNameParents(parents)}${node.key}`);
-    }
-    return [];
   });
   const linesNoEmpty = linesWithEmpty.filter((value) => (value.length > 0));
   const linesJoinOneText = linesNoEmpty.join('\n');

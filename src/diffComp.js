@@ -32,14 +32,10 @@ const addValues = (oneObject, twoObject, key, values) => {
       return addNode('=', key, values.comp);
     }
     if (!isObject(value1) && !isObject(value2)) {
-      if (value1 !== value2) {
-        return addSubPlus(key, value1, value2);
-      }
+      if (value1 !== value2) return addSubPlus(key, value1, value2);
       return addNode('=', key, value1);
     }
-    if (isObject(value1) !== isObject(value2)) {
-      return addSubPlus(key, values.fir, values.sec);
-    }
+    if (isObject(value1) !== isObject(value2)) return addSubPlus(key, values.fir, values.sec);
   }
   if (obj1HasKeyProperty) {
     const sign = isObjectEmpty(twoObject, '-');

@@ -12,7 +12,7 @@ const getUnionSorted = (oneObject, twoObject) => {
 };
 
 const addNode = (sign, key, value) => {
-  const newNode = { sign: sign, key: key, value: value };
+  const newNode = { sign, key, value };
   return newNode;
 };
 

@@ -24,13 +24,13 @@ const updatedValue = (node, index, nodes, parents) => {
 
 const startPlain = (diffObject, parents = '') => {
   const linesWithEmpty = diffObject.flatMap((node, index, nodes) => {
-    switch (node.sign){
+    switch (node.sign) {
       case '+':
         return addedValue(node, index, nodes, parents);
       case '-':
         return updatedValue(node, index, nodes, parents);
       default:
-       return isObject(node.value) ? startPlain(node.value, `${getNameParents(parents)}${node.key}`) : [];
+        return isObject(node.value) ? startPlain(node.value, `${getNameParents(parents)}${node.key}`) : [];
     }
   });
   const linesNoEmpty = linesWithEmpty.filter((value) => (value.length > 0));

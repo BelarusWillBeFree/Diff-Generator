@@ -17,8 +17,8 @@ const addNode = (sign, key, value) => {
 };
 
 const addSubPlus = (key, value1, value2) => {
-  const subNode = { sign: '-', key: key, value: value1 };
-  const plusNode = { sign: '+', key: key, value: value2 };
+  const subNode = { sign: '-', key, value: value1 };
+  const plusNode = { sign: '+', key, value: value2 };
   return [subNode, plusNode];
 };
 

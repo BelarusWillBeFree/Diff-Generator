@@ -39,10 +39,12 @@ const addValues = (oneObject, twoObject, key, values) => {
   }
   if (obj1HasKeyProperty) {
     const sign = isObjectEmpty(twoObject, '-');
-    return addNode(sign, key, values.fir);
+    const addedNode = addNode(sign, key, values.fir);
+    return addedNode;
   }
   if (obj2HasKeyProperty) {
-    return addNode('+', key, values.sec);
+    const addedNode = addNode('+', key, values.sec);
+    return addedNode;
   }
   return [];
 };

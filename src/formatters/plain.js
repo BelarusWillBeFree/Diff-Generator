@@ -35,7 +35,9 @@ const startPlain = (diffObject, parents = '') => {
     }
     return [];
   });
-  return linesWithEmpty.filter((value) => (value.length > 0)).join('\n');
+  const linesNoEmpty = linesWithEmpty.filter((value) => (value.length > 0));
+  const linesJoinOneText = linesNoEmpty.join('\n');
+  return linesJoinOneText;
 };
 
 export default startPlain;

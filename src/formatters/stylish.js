@@ -1,25 +1,29 @@
-import { isObject } from '../diffComp.js';
+import _ from 'lodash';
 
-const getViewSymbol = (diffSymb) => {
-  if (diffSymb === '=' || diffSymb.length === 0) {
-    return '  ';
+const getSymbForView = (type) => {
+  switch (type) {
+    case 'added':
+      return '+ ';
+    case 'absent':
+      return '- ';
+    default:
+      return '  ';
   }
-  return `${diffSymb} `;
 };
 
 const getSymBefEnd = (value, begEnd = 'begin') => {
   const symbBegEnd = begEnd === 'begin' ? '{\n' : '}\n';
-  return isObject(value) ? symbBegEnd : '';
+  return _.isObject(value) ? symbBegEnd : '';
 };
 
 const stylish = (diffObject, replacer, spacesCount, deep = 1) => {
-  if (!isObject(diffObject)) {
+  if (!_.isObject(diffObject)) {
     return `${String(diffObject)}\n`;
   }
   const resultFormat = diffObject.map((obj) => {
     const replacerForBegin = replacer.repeat(spacesCount * deep);
-    const replacerForEnd = isObject(obj.value) ? replacer.repeat(spacesCount * deep + 2) : '';
-    return `${replacerForBegin}${getViewSymbol(obj.sign)}${obj.key}: ${getSymBefEnd(obj.value)}${stylish(obj.value, replacer, spacesCount, deep + spacesCount)}${replacerForEnd}${getSymBefEnd(obj.value, 'end')}`;
+    const replacerForEnd = _.isObject(obj.value) ? replacer.repeat(spacesCount * deep + 2) : '';
+    return `${replacerForBegin}${getSymbForView(obj.type)}${obj.key}: ${getSymBefEnd(obj.value)}${stylish(obj.value, replacer, spacesCount, deep + spacesCount)}${replacerForEnd}${getSymBefEnd(obj.value, 'end')}`;
   }).join('');
   return resultFormat;
 };

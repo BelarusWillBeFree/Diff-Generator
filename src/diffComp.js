@@ -1,24 +1,13 @@
 import _ from 'lodash';
 
-export const isObject = (checkValue) => (checkValue !== null && typeof checkValue === 'object');
-
-const isObjectEmpty = (objectForCheck, defaultSign = '') => (Object.keys(objectForCheck).length === 0 ? '' : defaultSign);
-
-const getUnionSorted = (oneObject, twoObject) => {
-  const keysFromFirstObject = Object.entries(oneObject).map(([key]) => (key));
-  const keysFromSecondObject = Object.entries(twoObject).map(([key]) => (key));
-  const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
-  return _.sortBy(unionKeys);
-};
-
-const addNode = (sign, key, value) => {
-  const newNode = { sign, key, value };
+const addNode = (type, key, value) => {
+  const newNode = { type, key, value };
   return newNode;
 };
 
 const addSubPlus = (key, value1, value2) => {
-  const subNode = { sign: '-', key, value: value1 };
-  const plusNode = { sign: '+', key, value: value2 };
+  const subNode = { type: 'absent', key, value: value1 };
+  const plusNode = { type: 'added', key, value: value2 };
   return [subNode, plusNode];
 };
 
@@ -28,30 +17,35 @@ const addValues = (oneObject, twoObject, key, values) => {
   const value1 = oneObject[key];
   const value2 = twoObject[key];
   if (obj1HasKeyProperty && obj2HasKeyProperty) {
-    if (isObject(value1) && isObject(value2)) {
-      return addNode('=', key, values.comp);
+    const isObjValue1 = _.isObject(value1);
+    const isObjValue2 = _.isObject(value2);
+    if (isObjValue1 && isObjValue2) {
+      return addNode('equals', key, values.comp);
     }
-    if (!isObject(value1) && !isObject(value2)) {
+    if (!isObjValue1 && !isObjValue2) {
       if (value1 !== value2) return addSubPlus(key, value1, value2);
-      return addNode('=', key, value1);
+      return addNode('equals', key, value1);
     }
-    if (isObject(value1) !== isObject(value2)) return addSubPlus(key, values.fir, values.sec);
+    if (isObjValue1 !== isObjValue2) return addSubPlus(key, values.fir, values.sec);
   }
   if (obj1HasKeyProperty) {
-    const sign = isObjectEmpty(twoObject, '-');
-    const addedNode = addNode(sign, key, values.fir);
+    const type = Object.keys(twoObject).length === 0 ? '' : 'absent';
+    const addedNode = addNode(type, key, values.fir);
     return addedNode;
   }
   if (obj2HasKeyProperty) {
-    const addedNode = addNode('+', key, values.sec);
+    const addedNode = addNode('added', key, values.sec);
     return addedNode;
   }
   return [];
 };
 
 const makeComplexDiff = (oneObject, twoObject = {}) => {
-  if (!isObject(oneObject)) return oneObject;
-  const fullSortedKeys = getUnionSorted(oneObject, twoObject);
+  if (!_.isObject(oneObject)) return oneObject;
+  const keysFromFirstObject = Object.entries(oneObject).map(([key]) => (key));
+  const keysFromSecondObject = Object.entries(twoObject).map(([key]) => (key));
+  const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
+  const fullSortedKeys = _.sortBy(unionKeys);
   return fullSortedKeys.flatMap((key) => {
     const compexValue = makeComplexDiff(oneObject[key], twoObject[key]);
     const valueFirObj = makeComplexDiff(oneObject[key]);

@@ -1,4 +1,4 @@
-import { isObject } from '../diffComp.js';
+import _ from 'lodash';
 
 const getFormatedValue = (value) => {
   if (typeof value === 'string') return `'${value}'`;
@@ -7,7 +7,7 @@ const getFormatedValue = (value) => {
 
 const getNameParents = (parents) => (parents === '' ? '' : `${parents}.`);
 
-const getValue = (node) => (isObject(node.value) ? '[complex value]' : getFormatedValue(node.value));
+const getValue = (node) => (_.isObject(node.value) ? '[complex value]' : getFormatedValue(node.value));
 
 const addedValue = (node, index, nodes, parents) => {
   if (index >= 1 && nodes[index - 1].key === node.key) return [];
@@ -16,7 +16,7 @@ const addedValue = (node, index, nodes, parents) => {
 
 const updatedValue = (node, index, nodes, parents) => {
   if ((index + 1 <= nodes.length - 1) && nodes[index + 1].key === node.key) {
-    const valueNextElem = isObject(nodes[index + 1].value) ? '[complex value]' : getFormatedValue(nodes[index + 1].value);
+    const valueNextElem = _.isObject(nodes[index + 1].value) ? '[complex value]' : getFormatedValue(nodes[index + 1].value);
     return `Property '${getNameParents(parents)}${node.key}' was updated. From ${getValue(node)} to ${valueNextElem}`;
   }
   return `Property '${getNameParents(parents)}${node.key}' was removed`;
@@ -24,13 +24,13 @@ const updatedValue = (node, index, nodes, parents) => {
 
 const startPlain = (diffObject, parents = '') => {
   const linesWithEmpty = diffObject.flatMap((node, index, nodes) => {
-    switch (node.sign) {
-      case '+':
+    switch (node.type) {
+      case 'added':
         return addedValue(node, index, nodes, parents);
-      case '-':
+      case 'absent':
         return updatedValue(node, index, nodes, parents);
       default:
-        return isObject(node.value) ? startPlain(node.value, `${getNameParents(parents)}${node.key}`) : [];
+        return _.isObject(node.value) ? startPlain(node.value, `${getNameParents(parents)}${node.key}`) : [];
     }
   });
   const linesNoEmpty = linesWithEmpty.filter((value) => (value.length > 0));

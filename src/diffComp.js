@@ -10,6 +10,19 @@ const addSubPlus = (key, value1, value2) => {
   const plusNode = { type: 'added', key, value: value2 };
   return [subNode, plusNode];
 };
+const twoObjHasSameKey = (value1, value2, key, values) => {
+  const isObjValue1 = _.isObject(value1);
+  const isObjValue2 = _.isObject(value2);
+  if (isObjValue1 && isObjValue2) {
+    return addNode('equals', key, values.comp);
+  }
+  if (!isObjValue1 && !isObjValue2) {
+    if (value1 !== value2) return addSubPlus(key, value1, value2);
+    return addNode('equals', key, value1);
+  }
+   return addSubPlus(key, values.fir, values.sec);
+//if (isObjValue1 !== isObjValue2)
+};
 
 const addValues = (oneObject, twoObject, key, values) => {
   const obj1HasKeyProperty = Object.prototype.hasOwnProperty.call(oneObject, key);
@@ -17,16 +30,7 @@ const addValues = (oneObject, twoObject, key, values) => {
   const value1 = oneObject[key];
   const value2 = twoObject[key];
   if (obj1HasKeyProperty && obj2HasKeyProperty) {
-    const isObjValue1 = _.isObject(value1);
-    const isObjValue2 = _.isObject(value2);
-    if (isObjValue1 && isObjValue2) {
-      return addNode('equals', key, values.comp);
-    }
-    if (!isObjValue1 && !isObjValue2) {
-      if (value1 !== value2) return addSubPlus(key, value1, value2);
-      return addNode('equals', key, value1);
-    }
-    if (isObjValue1 !== isObjValue2) return addSubPlus(key, values.fir, values.sec);
+    return twoObjHasSameKey(value1, value2, key, values);
   }
   if (obj1HasKeyProperty) {
     const type = Object.keys(twoObject).length === 0 ? '' : 'absent';

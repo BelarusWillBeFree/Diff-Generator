@@ -13,7 +13,7 @@
 Узнать номер версии gendiff -V
 Запуск программы: gendiff [options] <путь к файлу 1> <путь к файлу 2>
 Реализованные форматы вывода (задается в опции -f) : stilysh (default), plain, json
- 
+
 run gendiff
 [![asciicast](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY.svg)](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY)
 run gendiff step 5

@@ -6,10 +6,14 @@
 
 В проекте реализована функция сравнения файлов и возврата отличий между файлами в разных видах. 
 Установка проекта: make install,
-Запуск eslink: make link,
+Запуск eslink: make lint,
 Запуск тестов: make test,
 Запуск тестов с таблицей покрытия: make test-coverage
-
+Получение справки: gendiff -h
+Узнать номер версии gendiff -V
+Запуск программы: gendiff [options] <путь к файлу 1> <путь к файлу 2>
+Реализованные форматы вывода (задается в опции -f) : stilysh (default), plain, json
+ 
 run gendiff
 [![asciicast](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY.svg)](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY)
 run gendiff step 5

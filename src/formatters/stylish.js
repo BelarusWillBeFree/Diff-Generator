@@ -4,7 +4,7 @@ const getSymbForView = (type) => {
   switch (type) {
     case 'added':
       return '+ ';
-    case 'absent':
+    case 'deleted':
       return '- ';
     default:
       return '  ';

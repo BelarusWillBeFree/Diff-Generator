@@ -6,22 +6,22 @@ const addNode = (type, key, value) => {
 };
 
 const addSubPlus = (key, value1, value2) => {
-  const subNode = { type: 'absent', key, value: value1 };
+  const subNode = { type: 'deleted', key, value: value1 };
   const plusNode = { type: 'added', key, value: value2 };
   return [subNode, plusNode];
 };
+
 const twoObjHasSameKey = (value1, value2, key, values) => {
   const isObjValue1 = _.isObject(value1);
   const isObjValue2 = _.isObject(value2);
   if (isObjValue1 && isObjValue2) {
-    return addNode('equals', key, values.comp);
+    return addNode('notChanged', key, values.comp);
   }
   if (!isObjValue1 && !isObjValue2) {
     if (value1 !== value2) return addSubPlus(key, value1, value2);
-    return addNode('equals', key, value1);
+    return addNode('notChanged', key, value1);
   }
    return addSubPlus(key, values.fir, values.sec);
-//if (isObjValue1 !== isObjValue2)
 };
 
 const addValues = (oneObject, twoObject, key, values) => {
@@ -33,7 +33,7 @@ const addValues = (oneObject, twoObject, key, values) => {
     return twoObjHasSameKey(value1, value2, key, values);
   }
   if (obj1HasKeyProperty) {
-    const type = Object.keys(twoObject).length === 0 ? '' : 'absent';
+    const type = Object.keys(twoObject).length === 0 ? '' : 'deleted';
     const addedNode = addNode(type, key, values.fir);
     return addedNode;
   }

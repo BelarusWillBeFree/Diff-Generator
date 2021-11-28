@@ -27,7 +27,7 @@ const startPlain = (diffObject, parents = '') => {
     switch (node.type) {
       case 'added':
         return addedValue(node, index, nodes, parents);
-      case 'absent':
+      case 'deleted':
         return updatedValue(node, index, nodes, parents);
       default:
         return _.isObject(node.value) ? startPlain(node.value, `${getNameParents(parents)}${node.key}`) : [];

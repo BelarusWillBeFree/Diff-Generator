@@ -21,7 +21,7 @@ const twoObjHasSameKey = (value1, value2, key, values) => {
     if (value1 !== value2) return addSubPlus(key, value1, value2);
     return addNode('notChanged', key, value1);
   }
-   return addSubPlus(key, values.fir, values.sec);
+  return addSubPlus(key, values.fir, values.sec);
 };
 
 const addValues = (oneObject, twoObject, key, values) => {

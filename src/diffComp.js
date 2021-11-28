@@ -12,12 +12,10 @@ const addSubPlus = (key, value1, value2) => {
 };
 
 const twoObjHasSameKey = (value1, value2, key, values) => {
-  const isObjValue1 = _.isObject(value1);
-  const isObjValue2 = _.isObject(value2);
-  if (isObjValue1 && isObjValue2) {
+  if (_.isObject(value1) && _.isObject(value2)) {
     return addNode('notChanged', key, values.comp);
   }
-  if (!isObjValue1 && !isObjValue2) {
+  if (!_.isObject(value1) && !_.isObject(value2)) {
     if (value1 !== value2) return addSubPlus(key, value1, value2);
     return addNode('notChanged', key, value1);
   }

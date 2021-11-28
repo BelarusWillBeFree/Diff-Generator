@@ -14,7 +14,7 @@ const addedValue = (node, index, nodes, parents) => {
   return `Property '${getNameParents(parents)}${node.key}' was added with value: ${getValue(node)}`;
 };
 
-const updatedValue = (node, index, nodes, parents) => {
+const updatedOrDelValue = (node, index, nodes, parents) => {
   if ((index + 1 <= nodes.length - 1) && nodes[index + 1].key === node.key) {
     const valueNextElem = _.isObject(nodes[index + 1].value) ? '[complex value]' : getFormatedValue(nodes[index + 1].value);
     return `Property '${getNameParents(parents)}${node.key}' was updated. From ${getValue(node)} to ${valueNextElem}`;
@@ -28,7 +28,7 @@ const startPlain = (diffObject, parents = '') => {
       case 'added':
         return addedValue(node, index, nodes, parents);
       case 'deleted':
-        return updatedValue(node, index, nodes, parents);
+        return updatedOrDelValue(node, index, nodes, parents);
       default:
         return _.isObject(node.value) ? startPlain(node.value, `${getNameParents(parents)}${node.key}`) : [];
     }

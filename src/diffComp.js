@@ -5,7 +5,7 @@ const addNode = (type, key, value) => {
   return newNode;
 };
 
-const addSubPlus = (key, value1, value2) => {
+const valuesDelAndAdd = (key, value1, value2) => {
   const subNode = { type: 'deleted', key, value: value1 };
   const plusNode = { type: 'added', key, value: value2 };
   return [subNode, plusNode];
@@ -16,10 +16,10 @@ const twoObjHasSameKey = (value1, value2, key, values) => {
     return addNode('notChanged', key, values.comp);
   }
   if (!_.isObject(value1) && !_.isObject(value2)) {
-    if (value1 !== value2) return addSubPlus(key, value1, value2);
+    if (value1 !== value2) return valuesDelAndAdd(key, value1, value2);
     return addNode('notChanged', key, value1);
   }
-  return addSubPlus(key, values.fir, values.sec);
+  return valuesDelAndAdd(key, values.fir, values.sec);
 };
 
 const addValues = (oneObject, twoObject, key, values) => {

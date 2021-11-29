@@ -6,7 +6,7 @@ gendiff:
 
 gendiff-install:
 	chmod +x bin/gendiff.js
-	npm limk
+	npm link
 
 gendiff-uninstall:
 	npm unlink

@@ -4,15 +4,57 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/41b1f076cc89afb108fc/test_coverage)](https://codeclimate.com/github/BelarusWillBeFree/frontend-project-lvl2/test_coverage)
 [![Action Status](https://github.com/BelarusWillBeFree/frontend-project-lvl2/actions/workflows/makeTests.yml/badge.svg)](https://github.com/BelarusWillBeFree/frontend-project-lvl2/actions)
 
-В проекте реализована функция сравнения файлов и возврата отличий между файлами в разных видах. 
-Установка проекта: make install,
-Запуск eslink: make lint,
-Запуск тестов: make test,
-Запуск тестов с таблицей покрытия: make test-coverage
-Получение справки: gendiff -h
-Узнать номер версии gendiff -V
-Запуск программы: gendiff [options] <путь к файлу 1> <путь к файлу 2>
-Реализованные форматы вывода (задается в опции -f) : stilysh (default), plain, json
+The CLI app to compare two configuration files and generate differences.
+
+<details>
+<summary>Setup</summary>
+
+## Setup
+### Install dependencies 
+
+```bash
+$ make install
+```
+
+### Run eslint 
+
+```bash
+$ make lint
+```
+
+### Run tests
+
+```bash
+$ make test 
+```
+</details>
+
+<details>
+<summary>Installation</summary>
+
+### Install
+```bash
+$ make gendiff-install
+```
+### UnInstall
+
+```bash
+$ make gendiff-uninstall
+```
+</details>
+
+## Overview
+The application compares two files of the JSON or YAML format and generates differences in the following formats: stylish, plain, and JSON.
+
+### Use
+```
+Usage: gendiff [options] <filepath1> <filepath2>
+Options:
+  -V, --version        output the version number
+  -f, --format [type]  output format [stylish, plain, json] (default: 'stylish')
+  -h, --help           display help for command
+```
+### Example
 
 run gendiff
 [![asciicast](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY.svg)](https://asciinema.org/a/ujAaeK1jEqnM5zrsmkAHAFDoY)
@@ -24,3 +66,4 @@ run gendiff --format plain
 [![asciicast](https://asciinema.org/a/gQpBqUz5yn5C0bAig6luCod5v.svg)](https://asciinema.org/a/gQpBqUz5yn5C0bAig6luCod5v)
 run gendiff --format json
 [![asciicast](https://asciinema.org/a/WeyDqa5kN0ij1qi3wJpIXpwTF.svg)](https://asciinema.org/a/WeyDqa5kN0ij1qi3wJpIXpwTF)
+

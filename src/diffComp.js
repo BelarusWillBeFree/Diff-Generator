@@ -12,23 +12,25 @@ const addValues = (oneObject, twoObject, key, values) => {
   const value1 = oneObject[key];
   const value2 = twoObject[key];
   if (!obj1HasKeyProperty) {
-    return {type: 'added', key, value: values.sec};
+    return { type: 'added', key, value: values.sec };
   }
   if (!obj2HasKeyProperty) {
     const type = Object.keys(twoObject).length === 0 ? '' : 'deleted';
-    return {type:type, key, value: values.fir};
+    return { type: type, key, value: values.fir };
   }
   if (_.isObject(value1) && _.isObject(value2)) {
-    return {type:'notChanged', key, value:values.comp};
+    return { type: 'notChanged', key, value: values.comp };
   }
   if (value1 !== value2) return valuesDelAndAdd(key, values.fir, values.sec);
-  return {type:'notChanged', key, value: value1};
+  return { type: 'notChanged', key, value: value1 };
 };
 
 const makeDiffValue = (oneObject, twoObject = {}) => {
   if (!_.isObject(oneObject)) return oneObject;
-  if (!_.isObject(twoObject)) {twoObject = {};};
-  const keysFromFirstObject = Object.keys(oneObject)
+  if (!_.isObject(twoObject)) {
+    twoObject = {};
+  };
+  const keysFromFirstObject = Object.keys(oneObject);
   const keysFromSecondObject = Object.keys(twoObject);
   const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
   const fullSortedKeys = _.sortBy(unionKeys);

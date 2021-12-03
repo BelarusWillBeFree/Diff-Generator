@@ -28,7 +28,7 @@ const addValues = (oneObject, twoObject, key, values) => {
 const makeDiffValue = (oneObject, twoObject = {}) => {
   if (!_.isObject(oneObject)) return oneObject;
   const keysFromFirstObject = Object.keys(oneObject);
-  const keysFromSecondObject = Object.keys(_.isObject(twoObject)?twoObject:{});
+  const keysFromSecondObject = Object.keys(_.isObject(twoObject) ? twoObject : {});
   const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
   const fullSortedKeys = _.sortBy(unionKeys);
   return fullSortedKeys.flatMap((key) => {

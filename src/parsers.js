@@ -10,7 +10,6 @@ const getParseData = (dataFromFile, extname) => {
     default:
       throw 'extension not defined';
   }
-  return {};
 };
 
 export default getParseData;

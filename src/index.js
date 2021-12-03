@@ -12,9 +12,7 @@ const getExtName = (pathForExt) => {
 
 const getDataFromFile = (inputPath) => {
   const resolvePath = path.normalize(inputPath);
-  if (existsSync(resolvePath)) {
-    return readFileSync(resolvePath, 'utf8');
-  }
+  return readFileSync(resolvePath, 'utf8');
 };
 
 const gendiff = (path1, path2, format) => {

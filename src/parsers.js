@@ -8,7 +8,7 @@ const getParseData = (dataFromFile, extname) => {
     case 'yaml':
       return yaml.load(dataFromFile);
     default:
-      throw 'extension not defined';
+      throw new Error('extension not defined');
   }
 };
 

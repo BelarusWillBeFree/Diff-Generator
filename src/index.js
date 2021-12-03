@@ -1,5 +1,5 @@
 import path from 'path';
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync } from 'fs';
 import formatter from './formatters/index.js';
 import getDiff from './diffComp.js';
 import parseData from './parsers.js';

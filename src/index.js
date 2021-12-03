@@ -4,24 +4,26 @@ import formatter from './formatters/index.js';
 import getDiff from './diffComp.js';
 import parseData from './parsers.js';
 
+const getExtName = (pathForExt) => {
+  const resolvePath = path.normalize(pathForExt);
+  const onlyPath = path.extname(resolvePath);
+  return onlyPath.split('.')[1];
+};
+
 const getDataFromFile = (inputPath) => {
-  try {
-    const resolvePath = path.normalize(inputPath);
-    const extname = path.extname(resolvePath);
-    if (existsSync(resolvePath)) {
-      return { data: readFileSync(resolvePath, 'utf8'), ext: extname };
-    }
-    throw new Error(`file ${resolvePath} is not exist`);
-  } catch (err) {
-    throw new Error(`error ${err}`);
+  const resolvePath = path.normalize(inputPath);
+  if (existsSync(resolvePath)) {
+    return readFileSync(resolvePath, 'utf8');
   }
 };
 
 const gendiff = (path1, path2, format) => {
-  const infoFile1 = getDataFromFile(path1);
-  const infoFile2 = getDataFromFile(path2);
-  const parseFile1 = parseData(infoFile1);
-  const parseFile2 = parseData(infoFile2);
+  const data1 = getDataFromFile(path1);
+  const data2 = getDataFromFile(path2);
+  const extName1 = getExtName(path1);
+  const extName2 = getExtName(path2);
+  const parseFile1 = parseData(data1, extName1);
+  const parseFile2 = parseData(data2, extName2);
   const diff = getDiff(parseFile1, parseFile2);
   return formatter(diff, format);
 };

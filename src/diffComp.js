@@ -16,7 +16,7 @@ const addValues = (oneObject, twoObject, key, values) => {
   }
   if (!obj2HasKeyProperty) {
     const type = Object.keys(twoObject).length === 0 ? '' : 'deleted';
-    return { type: type, key, value: values.fir };
+    return { type, key, value: values.fir };
   }
   if (_.isObject(value1) && _.isObject(value2)) {
     return { type: 'notChanged', key, value: values.comp };
@@ -27,11 +27,8 @@ const addValues = (oneObject, twoObject, key, values) => {
 
 const makeDiffValue = (oneObject, twoObject = {}) => {
   if (!_.isObject(oneObject)) return oneObject;
-  if (!_.isObject(twoObject)) {
-    twoObject = {};
-  };
   const keysFromFirstObject = Object.keys(oneObject);
-  const keysFromSecondObject = Object.keys(twoObject);
+  const keysFromSecondObject = Object.keys(_.isObject(twoObject)?twoObject:{});
   const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
   const fullSortedKeys = _.sortBy(unionKeys);
   return fullSortedKeys.flatMap((key) => {

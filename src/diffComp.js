@@ -22,7 +22,7 @@ const makeDiff = (oneObject, twoObject = {}) => {
     if (value1 === value2) {
       return ({ type: 'notChanged', key, value: value1 });
     }
-    return ( { type: 'changed', key, value1: oneObject[key], value2: twoObject[key] } );
+    return ( { type: 'changed', key, value1: oneObject[key], value2: twoObject[key], } );
   });
 };
 

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const makeDiff = (oneObject, twoObject = {}) =>{
+const makeDiff = (oneObject, twoObject = {}) => {
   const keysFromFirstObject = Object.keys(oneObject);
   const keysFromSecondObject = Object.keys(twoObject);
   const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
@@ -17,12 +17,12 @@ const makeDiff = (oneObject, twoObject = {}) =>{
       return { type: 'deleted', key, value: value1 };
     }
     if (_.isObject(value1) && _.isObject(value2)) {
-      return { type: 'nested', key, children: makeDiff(value1, value2)};
+      return { type: 'nested', key, children: makeDiff(value1, value2) };
     }
     if (value1 !== value2) {
-      return { type: 'changed', key, value1: value1, value2: value2};
+      return { type: 'changed', key, value1, value2 };
     }
-    return { type: 'notChanged', key, value: value1};
+    return { type: 'notChanged', key, value: value1 };
   });
 };
 

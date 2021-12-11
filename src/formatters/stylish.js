@@ -11,15 +11,15 @@ const getSymbForView = (type) => {
   }
 };
 
-const getObjectView = (diffObject, replacer, spacesCount, deep = 1) =>{
+const getObjectView = (diffObject, replacer, spacesCount, deep = 1) => {
   if (!_.isObject(diffObject)) {
     return `${String(diffObject)}\n`;
   }
   const replacerForBegin = replacer.repeat(spacesCount * deep);
-  const replacerForEnd = replacer.repeat(spacesCount * deep-2);
+  const replacerForEnd = replacer.repeat(spacesCount * deep - 2);
   const resultFormat = Object.entries(diffObject).map(([key, value]) => {
     const viewValue = getObjectView(value, replacer, spacesCount, deep + spacesCount);
-    return `${replacerForBegin}  ${key}: ${viewValue}`;//${replacerForEnd}
+    return `${replacerForBegin}  ${key}: ${viewValue}`;
   }).join('');
   return `{\n${resultFormat}${replacerForEnd}}\n`;
 };
@@ -28,7 +28,7 @@ const stylish = (diffObject, replacer, spacesCount, deep = 1) => {
   if (!_.isObject(diffObject)) {
     return `${String(diffObject)}\n`;
   }
-  const resultFormat = diffObject.map((obj) => {
+  return diffObject.map((obj) => {
     const replacerForBegin = replacer.repeat(spacesCount * deep);
     const replacerForEnd = replacer.repeat(spacesCount * deep + 2);
     if (obj.type === 'changed') {
@@ -44,8 +44,6 @@ const stylish = (diffObject, replacer, spacesCount, deep = 1) => {
     const result = `${replacerForBegin}${getSymbForView(obj.type)}${obj.key}: {\n${value}${replacerForEnd}}\n`;
     return result;
   }).join('');
-  return resultFormat;
-
 };
 
 const startStylish = (diffObject, replacer = ' ', spacesCount = 2) => (`{\n${stylish(diffObject, replacer, spacesCount)}}`);

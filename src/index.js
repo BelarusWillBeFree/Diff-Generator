@@ -11,7 +11,7 @@ const getExtName = (pathForExt) => {
 };
 
 const getDataFromFile = (inputPath) => {
-  const resolvePath = path.resolve(inputPath);//resolve()
+  const resolvePath = path.resolve(inputPath);
   return readFileSync(resolvePath, 'utf8');
 };
 

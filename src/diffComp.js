@@ -11,18 +11,18 @@ const makeDiff = (oneObject, twoObject = {}) => {
     const value1 = oneObject[key];
     const value2 = twoObject[key];
     if (!obj1HasKeyProperty) {
-      return { type: 'added', key, value: value2 };
+      return ({ type: 'added', key, value: value2 });
     }
     if (!obj2HasKeyProperty) {
-      return { type: 'deleted', key, value: value1 };
+      return ({ type: 'deleted', key, value: value1 });
     }
     if (_.isObject(value1) && _.isObject(value2)) {
-      return { type: 'nested', key, children: makeDiff(value1, value2) };
+      return ({ type: 'nested', key, children: makeDiff(value1, value2) });
     }
     if (value1 !== value2) {
-      return { type: 'changed', key, value1, value2 };
+      return ({ type: 'changed', key, value1, value2 });
     }
-    return { type: 'notChanged', key, value: value1 };
+    return ({ type: 'notChanged', key, value: value1 });
   });
 };
 

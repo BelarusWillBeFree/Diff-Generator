@@ -25,8 +25,8 @@ const makeDiff = (oneObject, twoObject = {}) => {
     return ({
       type: 'changed',
       key,
-      value1 ,
-      value2
+      value1,
+      value2,
     });
   });
 };

@@ -1,19 +1,17 @@
 import _ from 'lodash';
 
-const makeDiff = (oneObject, twoObject = {}) => {
-  const keysFromFirstObject = Object.keys(oneObject);
-  const keysFromSecondObject = Object.keys(twoObject);
+const makeDiff = (data1, data2 = {}) => {
+  const keysFromFirstObject = Object.keys(data1);
+  const keysFromSecondObject = Object.keys(data2);
   const unionKeys = _.union(keysFromFirstObject, keysFromSecondObject);
   const fullSortedKeys = _.sortBy(unionKeys);
   return fullSortedKeys.map((key) => {
-    const obj1HasKeyProperty = _.has(oneObject, key);
-    const obj2HasKeyProperty = _.has(twoObject, key);
-    const value1 = oneObject[key];
-    const value2 = twoObject[key];
-    if (!obj1HasKeyProperty) {
+    const value1 = data1[key];
+    const value2 = data2[key];
+    if (!_.has(data1, key)) {
       return ({ type: 'added', key, value: value2 });
     }
-    if (!obj2HasKeyProperty) {
+    if (!_.has(data2, key)) {
       return ({ type: 'deleted', key, value: value1 });
     }
     if (_.isObject(value1) && _.isObject(value2)) {
